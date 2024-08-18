@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Rubik } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/header";
+import Footer from "@/components/shared/footer";
 
 const sans = DM_Sans({
   subsets: ["latin"],
@@ -23,7 +24,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sans.variable} ${rubik.variable}`}>
         <Header />
-        {children}
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
