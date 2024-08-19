@@ -116,7 +116,7 @@ const BEST_PRODUCTS: TProducts[] = [
     price: 120,
     off_price: 160,
     image: image1,
-    rating: 2.5,
+    rating: 3.5,
   },
   {
     name: "AK-900 Wired Keyboard",
@@ -130,7 +130,7 @@ const BEST_PRODUCTS: TProducts[] = [
     price: 120,
     off_price: 160,
     image: image3,
-    rating: 4,
+    rating: 4.5,
   },
   {
     name: "Jr. Zoom Soccer Cleats",
