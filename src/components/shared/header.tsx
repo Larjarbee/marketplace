@@ -27,7 +27,9 @@ function Header() {
   return (
     <header>
       <nav className="container py-2 flex justify-between items-center">
-        <h2 className="text-2xl">Marketplace</h2>
+        <h2 className="text-2xl">
+          Marketplace<sup>NG</sup>
+        </h2>
         <div className="flex items-center">
           {[
             { name: "Home", path: "/" },

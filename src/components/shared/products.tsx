@@ -7,15 +7,17 @@ import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { TProducts } from "../../../types";
 
-function Products({ data }: { data: TProducts[] }) {
+type PropsType = { data: TProducts[]; nextEl: string; prevEl: string };
+
+function Products({ data, nextEl, prevEl }: PropsType) {
   return (
     <div>
       <Swiper
         slidesPerView={1}
         spaceBetween={10}
         navigation={{
-          nextEl: ".swiper-btn-next",
-          prevEl: ".swiper-btn-prev",
+          nextEl: nextEl,
+          prevEl: prevEl,
           clickable: true,
         }}
         breakpoints={{

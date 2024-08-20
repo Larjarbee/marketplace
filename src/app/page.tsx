@@ -10,7 +10,12 @@ import image2 from "@/assets/images/ak-900-01-500x500 1.png";
 import image3 from "@/assets/images/547953_9C2ST_8746_001_082_0000_Light-Gucci-Savoy-medium-duffle-bag 1.png";
 import image4 from "@/assets/images/Copa_Sense 1.png";
 import image5 from "@/assets/images/New-Mercedes-Benz-Gtr-Licensed-Ride-on-Car-Kids-Electric-Toy-Car 1.png";
-import image6 from "@/assets/images/69-694768_amazon-echo-png-clipart-transparent-amazon-echo-png 1.png";
+import image6 from "@/assets/images/jacket.png";
+import perfumePng from "@/assets/images/perfume.png";
+import speakerPng from "@/assets/images/speaker.png";
+import psPng from "@/assets/images/ps5-slim-goedkope-playstation_large 1.png";
+import womanPng from "@/assets/images/attractive-woman-wearing-hat-posing-black-background 1.png";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -65,7 +70,11 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <Products data={PRODUCTS} />
+          <Products
+            data={PRODUCTS}
+            nextEl=".swiper-btn-next"
+            prevEl=".swiper-btn-prev"
+          />
 
           <div className="flex justify-center py-5">
             <Button>View All Products</Button>
@@ -102,9 +111,84 @@ export default function Home() {
           <Heading text="This Month" />
           <div className="flex justify-between items-center gap-5">
             <h2 className="text-4xl">Best Selling Products</h2>
+            <div className="space-x-2">
+              <Button
+                className="btn-prev after:content-none"
+                size="icon"
+                variant="outline"
+              >
+                <Icon icon="formkit:arrowleft" />
+              </Button>
+              <Button
+                className="btn-next after:content-none"
+                size="icon"
+                variant="outline"
+              >
+                <Icon icon="formkit:arrowright" />
+              </Button>
+            </div>
+          </div>
+          <Products
+            data={BEST_PRODUCTS}
+            nextEl=".btn-next"
+            prevEl=".btn-prev"
+          />
+          <div className="flex justify-center pt-5">
             <Button>View All</Button>
           </div>
-          <Products data={BEST_PRODUCTS} />
+        </div>
+
+        <div className="space-y-5">
+          <Heading text="Featured" />
+          <h2 className="text-4xl">New Arrival</h2>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
+            <div className="relative col-span-1 row-span-1 bg-black flex flex-col justify-end md:col-span-2 md:row-span-2">
+              <div className="flex-1" />
+              <Image src={psPng} alt="" className="mx-auto" />
+              <div className="absolute text-gray-300 max-w-64 left-6 bottom-4">
+                <h2 className="text-2xl">PlayStation 5</h2>
+                <p className="pt-2 font-light">
+                  Black and White version of the PS5 coming out on sale.
+                </p>
+                <Button variant="link" className="p-0">
+                  Shop Now
+                </Button>
+              </div>
+            </div>
+            <div className="col-span-1 relative bg-black flex justify-end md:col-span-2">
+              <div className="absolute text-gray-300 max-w-64 left-6 bottom-4">
+                <h2 className="text-2xl">Women’s Collections</h2>
+                <p className="pt-2 font-light">
+                  Featured woman collections that give you another vibe.
+                </p>
+                <Button variant="link" className="p-0">
+                  Shop Now
+                </Button>
+              </div>
+              <Image src={womanPng} alt="" />
+            </div>
+            <div className="bg-black p-10 relative">
+              <Image src={speakerPng} alt="" className="mx-auto" />
+              <div className="absolute text-gray-300 max-w-64 left-6 bottom-4">
+                <h2 className="text-2xl">Speakers</h2>
+                <p className="pt-2 font-light">Amazon wireless speakers</p>
+                <Button variant="link" className="p-0">
+                  Shop Now
+                </Button>
+              </div>
+            </div>
+            <div className="bg-black p-10 relative">
+              <Image src={perfumePng} alt="" className="mx-auto" />
+              <div className="absolute text-gray-300 max-w-64 left-6 bottom-4">
+                <h2 className="text-2xl">Perfume</h2>
+                <p className="pt-2 font-light">GUCCI INTENSE OUD EDP</p>
+                <Button variant="link" className="p-0">
+                  Shop Now
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
