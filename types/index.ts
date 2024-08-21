@@ -7,7 +7,7 @@ export interface TCategories {
 export interface TProducts {
   name: string;
   price: number;
-  off_price: number;
+  off_price?: number;
   percent?: number;
   image: any;
   rating: number;

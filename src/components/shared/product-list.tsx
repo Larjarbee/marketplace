@@ -4,6 +4,7 @@ import { TProducts } from "../../../types";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { Ratings } from "../ui/rating";
+import { cn } from "@/lib/utils";
 
 function ProductList(data: TProducts) {
   return (
@@ -14,7 +15,12 @@ function ProductList(data: TProducts) {
             <p>-{data.percent}%</p>
           </div>
         )}
-        <div className="absolute right-2 top-0 flex flex-col gap-1">
+        <div
+          className={cn(
+            "absolute right-2 flex flex-col gap-1",
+            data?.percent ? "top-0" : "top-4"
+          )}
+        >
           <Button size="icon" className="bg-white text-black hover:text-white">
             <Icon icon="solar:heart-outline" className="text-lg" />
           </Button>
@@ -34,16 +40,30 @@ function ProductList(data: TProducts) {
         </Button>
       </div>
       <h2>{data.name}</h2>
-      <div className="flex gap-2">
-        <p className="text-red-500">${data.price.toLocaleString()}</p>
-        <p className="text-gray-400 line-through">
-          ${data.off_price.toLocaleString()}
-        </p>
-      </div>
-      <div className="flex gap-2">
-        <Ratings rating={data.rating} size={15} />
-        <p className="text-gray-400">(35)</p>
-      </div>
+      {data?.off_price ? (
+        <>
+          <div className="flex gap-2">
+            <p className="text-red-500">${data.price.toLocaleString()}</p>
+            <p className="text-gray-400 line-through">
+              ${data.off_price.toLocaleString()}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Ratings rating={data.rating} size={15} />
+            <p className="text-gray-400">(35)</p>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="flex gap-2">
+            <p className="text-red-500">${data.price.toLocaleString()}</p>
+            <div className="flex gap-2">
+              <Ratings rating={data.rating} size={15} />
+              <p className="text-gray-400">(35)</p>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

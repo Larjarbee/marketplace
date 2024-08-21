@@ -26,11 +26,12 @@ function Header() {
 
   return (
     <header>
-      <nav className="container py-2 flex justify-between items-center">
-        <h2 className="text-2xl">
+      <nav className="container py-2 flex justify-between gap-2 items-center">
+        <h2 className="text-2xl md:hidden">M</h2>
+        <h2 className="text-2xl hidden md:block">
           Marketplace<sup>NG</sup>
         </h2>
-        <div className="flex items-center">
+        <div className="hidden items-center md:flex">
           {[
             { name: "Home", path: "/" },
             { name: "Contact", path: "/contact" },
@@ -60,7 +61,7 @@ function Header() {
             </Button>
           </div>
           <TooltipProvider>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-0 items-center md:gap-2">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button size="icon" variant="ghost">
@@ -101,6 +102,7 @@ function Header() {
         </div>
       </nav>
       <hr />
+
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           {MENUS.map((menu, index) => (

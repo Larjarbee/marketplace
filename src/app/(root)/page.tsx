@@ -4,7 +4,7 @@ import Heading from "@/components/shared/heading";
 import Hero from "@/components/shared/hero";
 import Category from "@/components/shared/category";
 import Products from "@/components/shared/products";
-import { TProducts } from "../../types";
+import { TProducts } from "../../../types";
 import image1 from "@/assets/images/ideapad-gaming-3i-01-500x500 1.png";
 import image2 from "@/assets/images/ak-900-01-500x500 1.png";
 import image3 from "@/assets/images/547953_9C2ST_8746_001_082_0000_Light-Gucci-Savoy-medium-duffle-bag 1.png";
@@ -16,6 +16,8 @@ import speakerPng from "@/assets/images/speaker.png";
 import psPng from "@/assets/images/ps5-slim-goedkope-playstation_large 1.png";
 import womanPng from "@/assets/images/attractive-woman-wearing-hat-posing-black-background 1.png";
 import Image from "next/image";
+import ProductList from "@/components/shared/product-list";
+import Service from "@/components/shared/service";
 
 export default function Home() {
   return (
@@ -27,9 +29,27 @@ export default function Home() {
       <div className="container space-y-20">
         <div className="space-y-5">
           <Heading text="Today’s" />
-          <div className="flex justify-between items-center gap-5 flex-col md:flex-row">
-            <div className="flex items-center gap-x-20 flex-col md:flex-row">
-              <h2 className="text-4xl">Flash Sales</h2>
+          <div className="flex justify-between items-start gap-5 flex-col md:items-center md:flex-row">
+            <div className="flex items-start gap-5 flex-col md:flex-row md:items-center md:gap-20">
+              <div className="flex justify-between items-center gap-16">
+                <h2 className="text-4xl">Flash Sales</h2>
+                <div className="space-x-2 md:hidden">
+                  <Button
+                    className="swiper-btn-prev after:content-none"
+                    size="icon"
+                    variant="outline"
+                  >
+                    <Icon icon="formkit:arrowleft" />
+                  </Button>
+                  <Button
+                    className="swiper-btn-next after:content-none"
+                    size="icon"
+                    variant="outline"
+                  >
+                    <Icon icon="formkit:arrowright" />
+                  </Button>
+                </div>
+              </div>
               <div className="flex items-center gap-4">
                 <div>
                   <p className="text-xs">Days</p>
@@ -53,7 +73,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="space-x-2">
+            <div className="space-x-2 hidden md:block">
               <Button
                 className="swiper-btn-prev after:content-none"
                 size="icon"
@@ -86,7 +106,7 @@ export default function Home() {
         <div className="space-y-5">
           <Heading text="Categories" />
           <div className="flex justify-between items-center gap-5">
-            <h2 className="text-4xl">Browse by Categories</h2>
+            <h2 className="text-xl md:text-4xl">Browse by Categories</h2>
             <div className="space-x-2">
               <Button
                 className="swiper-button-prev after:content-none"
@@ -110,7 +130,7 @@ export default function Home() {
         <div className="space-y-5">
           <Heading text="This Month" />
           <div className="flex justify-between items-center gap-5">
-            <h2 className="text-4xl">Best Selling Products</h2>
+            <h2 className="text-xl md:text-4xl">Best Selling Products</h2>
             <div className="space-x-2">
               <Button
                 className="btn-prev after:content-none"
@@ -140,7 +160,7 @@ export default function Home() {
 
         <div className="space-y-5">
           <Heading text="Featured" />
-          <h2 className="text-4xl">New Arrival</h2>
+          <h2 className="text-xl md:text-4xl">New Arrival</h2>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
             <div className="relative col-span-1 row-span-1 bg-black flex flex-col justify-end md:col-span-2 md:row-span-2">
@@ -190,10 +210,76 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <div className="space-y-5">
+          <Heading text="Our Products" />
+          <h2 className="text-xl md:text-4xl">Explore Our Products</h2>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
+            {OUR_PRODUCTS?.map((product, index) => (
+              <ProductList key={index} {...product} />
+            ))}
+          </div>
+          <div className="flex justify-center pt-5">
+            <Button>View All</Button>
+          </div>
+        </div>
+
+        <Service />
       </div>
     </div>
   );
 }
+const OUR_PRODUCTS: TProducts[] = [
+  {
+    name: "HAVIT HV-G92 Gamepad",
+    price: 120,
+    image: image1,
+    rating: 3.5,
+  },
+  {
+    name: "AK-900 Wired Keyboard",
+    price: 970,
+    image: image2,
+    rating: 5,
+  },
+  {
+    name: "Gucci duffle bag",
+    price: 120,
+    image: image3,
+    rating: 4.5,
+  },
+  {
+    name: "Jr. Zoom Soccer Cleats",
+    price: 970,
+    image: image4,
+    rating: 5,
+  },
+  {
+    name: "HAVIT HV-G92 Gamepad",
+    price: 120,
+    image: image5,
+    rating: 2.5,
+  },
+  {
+    name: "AK-900 Wired Keyboard",
+    price: 970,
+    image: image6,
+    rating: 5,
+  },
+  {
+    name: "AK-900 Wired Keyboard",
+    price: 970,
+    image: image2,
+    rating: 5,
+  },
+  {
+    name: "Gucci duffle bag",
+    price: 120,
+    image: image3,
+    rating: 4.5,
+  },
+];
 const BEST_PRODUCTS: TProducts[] = [
   {
     name: "HAVIT HV-G92 Gamepad",
