@@ -27,7 +27,7 @@ function ProductDetail() {
     { name: "Ps console", icon: false },
   ];
   return (
-    <div className="container py-10 space-y-10">
+    <div className="container py-5 space-y-5">
       <BreadcrumbCard list={breadcrumbs} />
 
       <div className="flex items-center gap-10 max-w-6xl mx-auto flex-col md:flex-row">
@@ -64,15 +64,15 @@ function ProductDetail() {
               size="sm"
               className="rounded-none border-y-0 border-l-0"
             >
-              <Minus size={20} />
+              <Minus size={15} />
             </Button>
-            <p className="text-lg">0</p>
+            <p className="text-sm">0</p>
             <Button
               variant="outline"
               size="sm"
               className="rounded-none border-y-0 border-r-0"
             >
-              <Plus size={20} />
+              <Plus size={15} />
             </Button>
           </div>
 

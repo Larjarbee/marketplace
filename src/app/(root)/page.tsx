@@ -324,7 +324,7 @@ const BEST_PRODUCTS: TProducts[] = [
     rating: 5,
   },
 ];
-const PRODUCTS: TProducts[] = [
+export const PRODUCTS: TProducts[] = [
   {
     name: "HAVIT HV-G92 Gamepad",
     price: 120,

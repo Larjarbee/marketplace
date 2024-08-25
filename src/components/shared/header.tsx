@@ -36,7 +36,6 @@ function Header() {
             { name: "Home", path: "/" },
             { name: "Contact", path: "/contact" },
             { name: "About", path: "/about" },
-            { name: "Sign Up", path: "/sign-up" },
           ].map((link) => (
             <Link
               key={link.name}
@@ -49,6 +48,24 @@ function Header() {
               {link.name}
             </Link>
           ))}
+          <NavigationMenu className="mx-auto">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="font-light">
+                  Shop
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    {MENUS.map((link, index) => (
+                      <ListItem key={index} title={link.name} href={link.path}>
+                        {link.ads.toLocaleString()} ads
+                      </ListItem>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
         <div className="flex gap-2 items-center">
           <div className="flex items-center bg-gray-100 rounded-md">
@@ -75,9 +92,11 @@ function Header() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div className="relative">
-                    <Button size="icon" variant="ghost">
-                      <Icon icon="solar:cart-3-linear" className="text-xl" />
-                    </Button>
+                    <Link href="/cart">
+                      <Button size="icon" variant="ghost">
+                        <Icon icon="solar:cart-3-linear" className="text-xl" />
+                      </Button>
+                    </Link>
                     <div className="w-4 h-4 text-white top-0 flex text-xs items-center justify-center bg-primary rounded-full absolute">
                       <p>2</p>
                     </div>
@@ -102,39 +121,6 @@ function Header() {
         </div>
       </nav>
       <hr />
-
-      <NavigationMenu className="mx-auto">
-        <NavigationMenuList>
-          {MENUS.map((menu, index) => (
-            <NavigationMenuItem key={index}>
-              {menu.children ? (
-                <>
-                  <NavigationMenuTrigger>{menu.name}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                      {menu.children.map((link, index) => (
-                        <ListItem
-                          key={index}
-                          title={link.name}
-                          href={link.path}
-                        >
-                          {link.ads.toLocaleString()} ads
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </>
-              ) : (
-                <Link href={menu.path} legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    {menu.name}
-                  </NavigationMenuLink>
-                </Link>
-              )}
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
     </header>
   );
 }
@@ -168,25 +154,14 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 const MENUS = [
-  {
-    name: "Woman’s Fashion",
-    children: [
-      { name: "Shoes", path: "/", ads: 12400 },
-      { name: "Clothing", path: "/", ads: 12400 },
-    ],
-  },
-  {
-    name: "Men’s Fashion",
-    children: [
-      { name: "Shoes", path: "/", ads: 57000 },
-      { name: "Clothing", path: "/", ads: 12400 },
-    ],
-  },
-  { name: "Electronics", path: "/" },
-  { name: "Home & Lifestyle", path: "/" },
-  { name: "Medicine", path: "/" },
-  { name: "Sports & Outdoor", path: "/" },
-  { name: "Baby’s & Toys", path: "/" },
-  { name: "Groceries & Pets", path: "/" },
-  { name: "Health & Beauty", path: "/" },
+  { name: "Woman's Fashion", path: "/", ads: 12400 },
+  { name: "Men's Fashion", path: "/", ads: 12400 },
+
+  { name: "Electronics", path: "/", ads: 12400 },
+  { name: "Home & Lifestyle", path: "/", ads: 12400 },
+  { name: "Medicine", path: "/", ads: 12400 },
+  { name: "Sports & Outdoor", path: "/", ads: 12400 },
+  { name: "Baby’s & Toys", path: "/", ads: 12400 },
+  { name: "Groceries & Pets", path: "/", ads: 12400 },
+  { name: "Health & Beauty", path: "/", ads: 12400 },
 ];
