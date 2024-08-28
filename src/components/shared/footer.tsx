@@ -1,6 +1,11 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import scanPng from "@/assets/images/Qr Code.png";
+import appstorePng from "@/assets/images/AppStore.png";
+import playstorePng from "@/assets/images/GooglePlay.png";
+import Image from "next/image";
+import { Button } from "../ui/button";
 
 function Footer() {
   return (
@@ -60,6 +65,28 @@ function Footer() {
         </div>
         <div className="space-y-4">
           <h2 className="text-lg">Download App</h2>
+          <p className="text-xs font-light">Save $3 with App New User Only</p>
+          <div className="flex gap-1">
+            <Image src={scanPng} alt="Qr Code" />
+            <div>
+              <Image src={appstorePng} alt="App store" />
+              <Image src={playstorePng} alt="Play store" />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {[
+              "iconoir:facebook",
+              "pajamas:twitter",
+              "hugeicons:instagram",
+              "uit:linkedin-alt",
+            ].map((link, index) => (
+              <a key={index} href="#">
+                <Button variant="ghost" size="icon">
+                  <Icon icon={link} className="text-lg" />
+                </Button>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
       <p className="text-center text-gray-700">

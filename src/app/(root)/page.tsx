@@ -18,6 +18,7 @@ import womanPng from "@/assets/images/attractive-woman-wearing-hat-posing-black-
 import Image from "next/image";
 import ProductList from "@/components/shared/product-list";
 import Service from "@/components/shared/service";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -97,7 +98,9 @@ export default function Home() {
           />
 
           <div className="flex justify-center py-5">
-            <Button>View All Products</Button>
+            <Link href="/products/">
+              <Button>View All Products</Button>
+            </Link>
           </div>
 
           <hr />
@@ -230,7 +233,7 @@ export default function Home() {
     </div>
   );
 }
-const OUR_PRODUCTS: TProducts[] = [
+export const OUR_PRODUCTS: TProducts[] = [
   {
     name: "HAVIT HV-G92 Gamepad",
     price: 120,

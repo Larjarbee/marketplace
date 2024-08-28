@@ -81,9 +81,11 @@ function Header() {
             <div className="flex gap-0 items-center md:gap-2">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button size="icon" variant="ghost">
-                    <Icon icon="solar:heart-outline" className="text-xl" />
-                  </Button>
+                  <Link href="/wishlist">
+                    <Button size="icon" variant="ghost">
+                      <Icon icon="solar:heart-outline" className="text-xl" />
+                    </Button>
+                  </Link>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Saved Items</p>
