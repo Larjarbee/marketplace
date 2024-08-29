@@ -32,7 +32,7 @@ export default function Home() {
           <Heading text="Today’s" />
           <div className="flex justify-between items-start gap-5 flex-col md:items-center md:flex-row">
             <div className="flex items-start gap-5 flex-col md:flex-row md:items-center md:gap-20">
-              <div className="flex justify-between items-center gap-16">
+              <div className="flex justify-between items-center gap-10 md:gap-16">
                 <h2 className="text-4xl">Flash Sales</h2>
                 <div className="space-x-2 md:hidden">
                   <Button

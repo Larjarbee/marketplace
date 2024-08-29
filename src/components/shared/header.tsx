@@ -26,11 +26,13 @@ function Header() {
 
   return (
     <header>
-      <nav className="container py-2 flex justify-between gap-2 items-center">
-        <h2 className="text-2xl md:hidden">M</h2>
-        <h2 className="text-2xl hidden md:block">
-          Marketplace<sup>NG</sup>
-        </h2>
+      <nav className="w-11/12 mx-auto py-2 flex justify-between gap-2 items-center md:container">
+        <Link href="/">
+          <h2 className="text-2xl md:hidden">M</h2>
+          <h2 className="text-2xl hidden md:block">
+            Marketplace<sup>NG</sup>
+          </h2>
+        </Link>
         <div className="hidden items-center md:flex">
           {[
             { name: "Home", path: "/" },
@@ -108,16 +110,21 @@ function Header() {
                   <p>Carts</p>
                 </TooltipContent>
               </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button size="icon">
-                    <Icon icon="solar:user-outline" className="text-xl" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Profile</p>
-                </TooltipContent>
-              </Tooltip>
+              <div className="hidden md:block">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button size="icon">
+                      <Icon icon="solar:user-outline" className="text-xl" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Profile</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <Button size="icon" variant="ghost" className="md:hidden">
+                <Icon icon="gg:menu-right" className="text-xl" />
+              </Button>
             </div>
           </TooltipProvider>
         </div>
