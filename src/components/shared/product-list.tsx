@@ -49,9 +49,9 @@ function ProductList(data: TProducts) {
       {data?.off_price ? (
         <>
           <div className="flex gap-2">
-            <p className="text-red-500">${data.price.toLocaleString()}</p>
+            <p className="text-red-500">₦{data.price.toLocaleString()}</p>
             <p className="text-gray-400 line-through">
-              ${data.off_price.toLocaleString()}
+              ₦{data.off_price.toLocaleString()}
             </p>
           </div>
           <div className="flex gap-2">
@@ -62,7 +62,7 @@ function ProductList(data: TProducts) {
       ) : (
         <>
           <div className="flex gap-2">
-            <p className="text-red-500">${data.price.toLocaleString()}</p>
+            <p className="text-red-500">₦{data.price.toLocaleString()}</p>
             <div className="flex gap-2">
               <Ratings rating={data.rating} size={15} />
               <p className="text-gray-400">(35)</p>
