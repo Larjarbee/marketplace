@@ -18,7 +18,6 @@ function Products({ data, nextEl, prevEl }: PropsType) {
         navigation={{
           nextEl: nextEl,
           prevEl: prevEl,
-          clickable: true,
         }}
         breakpoints={{
           640: {

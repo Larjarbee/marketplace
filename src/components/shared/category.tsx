@@ -17,7 +17,6 @@ function Category() {
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
-          clickable: true,
         }}
         breakpoints={{
           640: {
