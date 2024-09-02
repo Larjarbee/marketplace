@@ -1,0 +1,65 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "HAVIT HV-G92 Gamepad",
+      "price": 120,
+      "off_price": 160,
+      "percent": 20,
+      "image": "@/assets/images/ideapad-gaming-3i-01-500x500 1.png",
+      "rating": 2.5
+    },
+    {
+      "id": "2",
+      "name": "AK-900 Wired Keyboard",
+      "price": 970,
+      "off_price": 1200,
+      "percent": 15,
+      "image": "@/assets/images/ak-900-01-500x500 1.png",
+      "rating": 5
+    },
+    {
+      "id": "3",
+      "name": "Gucci duffle bag",
+      "price": 120,
+      "off_price": 160,
+      "percent": 20,
+      "image": "@/assets/images/547953_9C2ST_8746_001_082_0000_Light-Gucci-Savoy-medium-duffle-bag 1.png",
+      "rating": 4
+    },
+    {
+      "id": "4",
+      "name": "Jr. Zoom Soccer Cleats",
+      "price": 970,
+      "off_price": 1200,
+      "percent": 15,
+      "image": "@/assets/images/",
+      "rating": 5
+    },
+    {
+      "id": "5",
+      "name": "HAVIT HV-G92 Gamepad",
+      "price": 120,
+      "off_price": 160,
+      "percent": 20,
+      "image": "@/assets/images/Copa_Sense 1.png",
+      "rating": 2.5
+    },
+    {
+      "id": "6",
+      "name": "AK-900 Wired Keyboard",
+      "price": 970,
+      "off_price": 1200,
+      "percent": 15,
+      "image": "@/assets/images/New-Mercedes-Benz-Gtr-Licensed-Ride-on-Car-Kids-Electric-Toy-Car 1.png",
+      "rating": 5
+    }
+  ],
+  "comments": [
+    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

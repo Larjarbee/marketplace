@@ -11,9 +11,9 @@ function ProductList(data: TProducts) {
   return (
     <div className="space-y-2">
       <div className="relative bg-gray-100 space-y-5 rounded-sm overflow-hidden">
-        {data.percent && (
+        {data?.percent && (
           <div className="absolute left-2 top-2 px-4 py-2 bg-primary rounded-md text-white text-xs font-light text-center w-fit">
-            <p>-{data.percent}%</p>
+            <p>-{data?.percent}%</p>
           </div>
         )}
         <div
@@ -36,35 +36,37 @@ function ProductList(data: TProducts) {
         </div>
         <div className="h-48 flex items-center justify-center">
           <Image
-            src={data.image}
-            alt={data.name}
+            src={data?.image}
+            alt={data?.name}
             className="m-auto object-contain"
+            width={100}
+            height={80}
           />
         </div>
         <Button className="w-full bg-black hover:bg-black/70">
           Add To Cart
         </Button>
       </div>
-      <h2>{data.name}</h2>
+      <h2>{data?.name}</h2>
       {data?.off_price ? (
         <>
           <div className="flex gap-2">
-            <p className="text-red-500">₦{data.price.toLocaleString()}</p>
+            <p className="text-red-500">₦{data?.price.toLocaleString()}</p>
             <p className="text-gray-400 line-through">
-              ₦{data.off_price.toLocaleString()}
+              ₦{data?.off_price.toLocaleString()}
             </p>
           </div>
           <div className="flex gap-2">
-            <Ratings rating={data.rating} size={15} />
+            <Ratings rating={data?.rating} size={15} />
             <p className="text-gray-400">(35)</p>
           </div>
         </>
       ) : (
         <>
           <div className="flex gap-2">
-            <p className="text-red-500">₦{data.price.toLocaleString()}</p>
+            <p className="text-red-500">₦{data?.price.toLocaleString()}</p>
             <div className="flex gap-2">
-              <Ratings rating={data.rating} size={15} />
+              <Ratings rating={data?.rating} size={15} />
               <p className="text-gray-400">(35)</p>
             </div>
           </div>

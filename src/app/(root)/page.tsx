@@ -19,8 +19,11 @@ import Image from "next/image";
 import ProductList from "@/components/shared/product-list";
 import Service from "@/components/shared/service";
 import Link from "next/link";
+import { fetchAPI } from "@/service";
 
-export default function Home() {
+export default async function Home() {
+  const data = await fetchAPI("/products");
+
   return (
     <div className="space-y-20">
       <div className="w-full bg-black md:container">
@@ -92,7 +95,7 @@ export default function Home() {
             </div>
           </div>
           <Products
-            data={PRODUCTS}
+            data={data}
             nextEl=".swiper-btn-next"
             prevEl=".swiper-btn-prev"
           />
@@ -323,56 +326,6 @@ const BEST_PRODUCTS: TProducts[] = [
     name: "AK-900 Wired Keyboard",
     price: 970,
     off_price: 1200,
-    image: image6,
-    rating: 5,
-  },
-];
-export const PRODUCTS: TProducts[] = [
-  {
-    name: "HAVIT HV-G92 Gamepad",
-    price: 120,
-    off_price: 160,
-    percent: 20,
-    image: image1,
-    rating: 2.5,
-  },
-  {
-    name: "AK-900 Wired Keyboard",
-    price: 970,
-    off_price: 1200,
-    percent: 15,
-    image: image2,
-    rating: 5,
-  },
-  {
-    name: "Gucci duffle bag",
-    price: 120,
-    off_price: 160,
-    percent: 20,
-    image: image3,
-    rating: 4,
-  },
-  {
-    name: "Jr. Zoom Soccer Cleats",
-    price: 970,
-    off_price: 1200,
-    percent: 15,
-    image: image4,
-    rating: 5,
-  },
-  {
-    name: "HAVIT HV-G92 Gamepad",
-    price: 120,
-    off_price: 160,
-    percent: 20,
-    image: image5,
-    rating: 2.5,
-  },
-  {
-    name: "AK-900 Wired Keyboard",
-    price: 970,
-    off_price: 1200,
-    percent: 15,
     image: image6,
     rating: 5,
   },

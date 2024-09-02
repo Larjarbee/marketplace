@@ -36,9 +36,9 @@ function Products({ data, nextEl, prevEl }: PropsType) {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {data?.map((product, index) => (
-          <SwiperSlide key={index}>
-            <ProductList key={index} {...product} />
+        {data?.map((product) => (
+          <SwiperSlide key={product?.id}>
+            <ProductList {...product} />
           </SwiperSlide>
         ))}
       </Swiper>
