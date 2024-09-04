@@ -21,7 +21,6 @@ export default function Login() {
         username: formData.get("username"),
         password: formData.get("password"),
         redirect: false,
-        // callbackUrl: "/admin/dashboard",
       });
 
       if (response?.error) {
@@ -30,6 +29,7 @@ export default function Login() {
       }
       toast.success("Login Successful");
       router.push("/admin/dashboard");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }

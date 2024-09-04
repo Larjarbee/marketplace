@@ -35,15 +35,6 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Admin not found");
           }
 
-          const passwordMatch = await bcrypt.compare(
-            credentials?.password,
-            user?.password
-          );
-
-          if (!passwordMatch) {
-            throw new Error("Invalid password");
-          }
-
           return user;
         } catch (error) {
           console.log("Error: ", error);

@@ -21,7 +21,6 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useSWRConfig } from "swr";
-import BlogsTable from "./components/BlogsTable";
 import { toast } from "sonner";
 
 export default function Blogs() {
@@ -65,8 +64,8 @@ export default function Blogs() {
         <div className="flex-1" />
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="secondary" className=" w-1/6">
-              Add Blog
+            <Button variant="secondary" className="w-1/6">
+              Add Product
             </Button>
           </DialogTrigger>
           <DialogContent className="lg:max-w-screen-lg overflow-y-scroll max-h-[600px]">
@@ -163,9 +162,7 @@ export default function Blogs() {
         </Dialog>
       </div>
 
-      <div className=" text-sm">
-        <BlogsTable />
-      </div>
+      <div className=" text-sm">{/* table */}</div>
     </div>
   );
 }

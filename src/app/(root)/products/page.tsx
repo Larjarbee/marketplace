@@ -116,71 +116,70 @@ function Products() {
               </Select>
             </div>
 
-            {/* <Button variant="ghost" size="icon" className="md:hidden">
-              <Icon icon="mage:filter" className="text-lg" />
-            </Button> */}
-            <Dialog>
-              <DialogTrigger>
-                <Icon icon="mage:filter" className="text-lg" />
-              </DialogTrigger>
-              <DialogContent className="h-full">
-                <div className="space-y-4">
-                  <h2 className="text-lg">filters</h2>
-                  <hr />
-                  <Form {...form}>
-                    <form className="space-y-4">
-                      <h2>Price, ₦ </h2>
-                      <div className="flex items-center gap-2">
-                        <FormInput name="min_price" label="Min Price" />
-                        <p>-</p>
-                        <FormInput name="max_price" label="Max Price" />
-                      </div>
+            <div className="md:hidden">
+              <Dialog>
+                <DialogTrigger>
+                  <Icon icon="mage:filter" className="text-lg" />
+                </DialogTrigger>
+                <DialogContent className="h-full">
+                  <div className="space-y-4">
+                    <h2 className="text-lg">filters</h2>
+                    <hr />
+                    <Form {...form}>
+                      <form className="space-y-4">
+                        <h2>Price, ₦ </h2>
+                        <div className="flex items-center gap-2">
+                          <FormInput name="min_price" label="Min Price" />
+                          <p>-</p>
+                          <FormInput name="max_price" label="Max Price" />
+                        </div>
 
-                      <h2>Discount</h2>
-                      <RadioGroup defaultValue="all">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="all" id="r1" />
-                          <Label htmlFor="r1">Show all</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="with_discount" id="r2" />
-                          <Label htmlFor="r2">With discount</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="without_discount" id="r3" />
-                          <Label htmlFor="r3">Without discount</Label>
-                        </div>
-                      </RadioGroup>
+                        <h2>Discount</h2>
+                        <RadioGroup defaultValue="all">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="all" id="r1" />
+                            <Label htmlFor="r1">Show all</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="with_discount" id="r2" />
+                            <Label htmlFor="r2">With discount</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="without_discount" id="r3" />
+                            <Label htmlFor="r3">Without discount</Label>
+                          </div>
+                        </RadioGroup>
 
-                      <h2>Rating</h2>
-                      <RadioGroup>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="four_above" id="r1" />
-                          <Ratings rating={4} size={15} />
-                          <Label htmlFor="r1">& above</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="three_above" id="r2" />
-                          <Ratings rating={3} size={15} />
-                          <Label htmlFor="r2">& above</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="two_above" id="r3" />
-                          <Ratings rating={2} size={15} />
-                          <Label htmlFor="r3">& above</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="one_above" id="r4" />
-                          <Ratings rating={1} size={15} />
-                          <Label htmlFor="r4">& above</Label>
-                        </div>
-                      </RadioGroup>
-                    </form>
-                  </Form>
-                  <Button className="w-1/3">Apply</Button>
-                </div>
-              </DialogContent>
-            </Dialog>
+                        <h2>Rating</h2>
+                        <RadioGroup>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="four_above" id="r1" />
+                            <Ratings rating={4} size={15} />
+                            <Label htmlFor="r1">& above</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="three_above" id="r2" />
+                            <Ratings rating={3} size={15} />
+                            <Label htmlFor="r2">& above</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="two_above" id="r3" />
+                            <Ratings rating={2} size={15} />
+                            <Label htmlFor="r3">& above</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="one_above" id="r4" />
+                            <Ratings rating={1} size={15} />
+                            <Label htmlFor="r4">& above</Label>
+                          </div>
+                        </RadioGroup>
+                      </form>
+                    </Form>
+                    <Button className="w-1/3">Apply</Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {OUR_PRODUCTS?.map((product, index) => (

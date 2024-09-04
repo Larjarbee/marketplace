@@ -19,11 +19,8 @@ import Image from "next/image";
 import ProductList from "@/components/shared/product-list";
 import Service from "@/components/shared/service";
 import Link from "next/link";
-import { fetchAPI } from "@/service";
 
 export default async function Home() {
-  const data = await fetchAPI("/products");
-
   return (
     <div className="space-y-20">
       <div className="w-full bg-black md:container">
@@ -95,7 +92,7 @@ export default async function Home() {
             </div>
           </div>
           <Products
-            data={data}
+            data={BEST_PRODUCTS}
             nextEl=".swiper-btn-next"
             prevEl=".swiper-btn-prev"
           />
@@ -238,56 +235,65 @@ export default async function Home() {
 }
 export const OUR_PRODUCTS: TProducts[] = [
   {
+    id: "1",
     name: "HAVIT HV-G92 Gamepad",
     price: 120,
     image: image1,
     rating: 3.5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     image: image2,
     rating: 5,
   },
   {
+    id: "1",
     name: "Gucci duffle bag",
     price: 120,
     image: image3,
     rating: 4.5,
   },
   {
+    id: "1",
     name: "Jr. Zoom Soccer Cleats",
     price: 970,
     image: image4,
     rating: 5,
   },
   {
+    id: "1",
     name: "HAVIT HV-G92 Gamepad",
     price: 120,
     image: image5,
     rating: 2.5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     image: image6,
     rating: 5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     image: image2,
     rating: 5,
   },
   {
+    id: "1",
     name: "Gucci duffle bag",
     price: 120,
     image: image3,
     rating: 4.5,
   },
 ];
-const BEST_PRODUCTS: TProducts[] = [
+export const BEST_PRODUCTS: TProducts[] = [
   {
+    id: "1",
     name: "HAVIT HV-G92 Gamepad",
     price: 120,
     off_price: 160,
@@ -295,6 +301,7 @@ const BEST_PRODUCTS: TProducts[] = [
     rating: 3.5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     off_price: 1200,
@@ -302,6 +309,7 @@ const BEST_PRODUCTS: TProducts[] = [
     rating: 5,
   },
   {
+    id: "1",
     name: "Gucci duffle bag",
     price: 120,
     off_price: 160,
@@ -309,6 +317,7 @@ const BEST_PRODUCTS: TProducts[] = [
     rating: 4.5,
   },
   {
+    id: "1",
     name: "Jr. Zoom Soccer Cleats",
     price: 970,
     off_price: 1200,
@@ -316,6 +325,7 @@ const BEST_PRODUCTS: TProducts[] = [
     rating: 5,
   },
   {
+    id: "1",
     name: "HAVIT HV-G92 Gamepad",
     price: 120,
     off_price: 160,
@@ -323,6 +333,7 @@ const BEST_PRODUCTS: TProducts[] = [
     rating: 2.5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     off_price: 1200,
