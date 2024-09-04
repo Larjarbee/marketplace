@@ -120,48 +120,56 @@ export default ProductDetail;
 
 const OUR_PRODUCTS: TProducts[] = [
   {
+    id: "1",
     name: "HAVIT HV-G92 Gamepad",
     price: 120,
     image: image1,
     rating: 3.5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     image: image2,
     rating: 5,
   },
   {
+    id: "1",
     name: "Gucci duffle bag",
     price: 120,
     image: image3,
     rating: 4.5,
   },
   {
+    id: "1",
     name: "Jr. Zoom Soccer Cleats",
     price: 970,
     image: image4,
     rating: 5,
   },
   {
+    id: "1",
     name: "HAVIT HV-G92 Gamepad",
     price: 120,
     image: image5,
     rating: 2.5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     image: image6,
     rating: 5,
   },
   {
+    id: "1",
     name: "AK-900 Wired Keyboard",
     price: 970,
     image: image2,
     rating: 5,
   },
   {
+    id: "1",
     name: "Gucci duffle bag",
     price: 120,
     image: image3,
