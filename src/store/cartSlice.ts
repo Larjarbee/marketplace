@@ -11,9 +11,8 @@ type initialStateProps = {
 export const cartSlice = createSlice({
   name: "cart",
   initialState: <initialStateProps>{
-    items: JSON.parse(window.localStorage.getItem("carts") as any) || [],
-    totalPrice:
-      JSON.parse(window.localStorage.getItem("cartsTotalPrice") as any) || 0,
+    items: JSON.parse(localStorage.getItem("carts") as any) || [],
+    totalPrice: JSON.parse(localStorage.getItem("cartsTotalPrice") as any) || 0,
   },
   reducers: {
     addItemToCart: (state, action: PayloadAction<TCart>) => {
@@ -33,11 +32,13 @@ export const cartSlice = createSlice({
       } else {
         existingItem.quantity += newItem.quantity;
       }
-      window.localStorage.setItem("carts", JSON.stringify(state.items));
-      window.localStorage.setItem(
-        "cartsTotalPrice",
-        JSON.stringify(state.totalPrice)
-      );
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
+          "cartsTotalPrice",
+          JSON.stringify(state.totalPrice)
+        );
+      }
     },
 
     removeItemFromCart: (state, action: PayloadAction<string>) => {
@@ -51,11 +52,13 @@ export const cartSlice = createSlice({
         state.items = state.items.filter((item) => item.id !== id);
         state.totalPrice -= existingItem.price;
       }
-      window.localStorage.setItem("carts", JSON.stringify(state.items));
-      window.localStorage.setItem(
-        "cartsTotalPrice",
-        JSON.stringify(state.totalPrice)
-      );
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
+          "cartsTotalPrice",
+          JSON.stringify(state.totalPrice)
+        );
+      }
     },
 
     deleteItemFromCart(state, action: PayloadAction<string>) {
@@ -66,11 +69,13 @@ export const cartSlice = createSlice({
         state.totalPrice -= totalPrice;
         state.items = state.items.filter((item) => item.id !== id);
       }
-      window.localStorage.setItem("carts", JSON.stringify(state.items));
-      window.localStorage.setItem(
-        "cartsTotalPrice",
-        JSON.stringify(state.totalPrice)
-      );
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
+          "cartsTotalPrice",
+          JSON.stringify(state.totalPrice)
+        );
+      }
     },
   },
 });
