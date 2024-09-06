@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button } from "../ui/button";
 import { TProducts } from "../../../types";
@@ -6,8 +7,27 @@ import { Icon } from "@iconify/react";
 import { Ratings } from "../ui/rating";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useAppDispatch } from "@/hooks/useStore";
+import { addItemToCart } from "@/store/cartSlice";
+import { toast } from "sonner";
 
 function ProductList(data: TProducts) {
+  const dispatch = useAppDispatch();
+
+  const addToCart = () => {
+    dispatch(
+      addItemToCart({
+        id: data.id,
+        name: data.name,
+        quantity: 1,
+        discount: data.discount,
+        price: data.price,
+        image: data.image,
+      })
+    );
+    toast.success("Item added successfully");
+  };
+
   return (
     <div className="space-y-2">
       <div className="relative bg-gray-100 space-y-5 rounded-sm overflow-hidden">
@@ -43,17 +63,20 @@ function ProductList(data: TProducts) {
             height={80}
           />
         </div>
-        <Button className="w-full bg-black hover:bg-black/70">
+        <Button
+          onClick={addToCart}
+          className="w-full bg-black hover:bg-black/70"
+        >
           Add To Cart
         </Button>
       </div>
       <h2>{data?.name}</h2>
-      {data?.off_price ? (
+      {data?.discount ? (
         <>
           <div className="flex gap-2">
             <p className="text-red-500">₦{data?.price.toLocaleString()}</p>
             <p className="text-gray-400 line-through">
-              ₦{data?.off_price.toLocaleString()}
+              ₦{data?.discount.toLocaleString()}
             </p>
           </div>
           <div className="flex gap-2">

@@ -1,13 +1,46 @@
+"use client";
 import BreadcrumbCard from "@/components/shared/Breadcrumb";
 import React from "react";
-import { TProducts } from "../../../../types";
+import { TCart } from "../../../../types";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import { Icon } from "@iconify/react";
-import { PRODUCTS } from "@/constants/data";
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import {
+  addItemToCart,
+  deleteItemFromCart,
+  removeItemFromCart,
+} from "@/store/cartSlice";
+import { toast } from "sonner";
 
 function Cart() {
+  const cartItems = useAppSelector((state) => state.cart.items);
+  const totalPrice = useAppSelector((state) => state.cart.totalPrice);
+
+  const delivery_fee = 15;
+
+  const dispatch = useAppDispatch();
+
+  const handleCartDelete = (id: string) => {
+    dispatch(deleteItemFromCart(id));
+    toast.error("Item deleted successfully");
+  };
+  const handleCartRemoveItem = (id: string) => {
+    dispatch(removeItemFromCart(id));
+    toast.error("Item removed successfully");
+  };
+
+  const addToCart = (product: TCart) => {
+    dispatch(
+      addItemToCart({
+        ...product,
+        quantity: 1,
+      })
+    );
+    toast.success("Item added successfully");
+  };
+
   const breadcrumbs = [
     { name: "Home", icon: true },
     { name: "Cart", icon: false },
@@ -20,9 +53,9 @@ function Cart() {
 
       <div className="flex gap-5 flex-col md:flex-row">
         <div className="basis-full space-y-4 md:basis-2/3">
-          {PRODUCTS.slice(0, 3).map((product: TProducts, index) => (
+          {cartItems?.map((product: TCart) => (
             <div
-              key={index}
+              key={product.id}
               className="flex justify-between items-center border rounded-md p-2"
             >
               <div className="flex items-center gap-2 basis-2/5">
@@ -41,14 +74,16 @@ function Cart() {
                   variant="outline"
                   size="sm"
                   className="rounded-none border-y-0 border-l-0"
+                  onClick={() => handleCartRemoveItem(product.id)}
                 >
                   <Minus size={15} />
                 </Button>
-                <p className="text-sm">1</p>
+                <p className="text-sm">{product.quantity}</p>
                 <Button
                   variant="outline"
                   size="sm"
                   className="rounded-none border-y-0 border-r-0"
+                  onClick={() => addToCart(product)}
                 >
                   <Plus size={15} />
                 </Button>
@@ -57,6 +92,7 @@ function Cart() {
                 variant="ghost"
                 size="icon"
                 className="text-red-500 hover:text-red-500"
+                onClick={() => handleCartDelete(product.id)}
               >
                 <Icon icon="material-symbols:delete" className="text-xl" />
               </Button>
@@ -67,11 +103,19 @@ function Cart() {
           <h2 className="text-xl">Order Summary</h2>
           <div className="flex gap-4 items-center justify-between">
             <p className="text-gray-400">Subtotal:</p>
-            <h2>$250</h2>
+            <h2>${totalPrice.toLocaleString()}</h2>
           </div>
           <div className="flex gap-4 items-center justify-between">
             <p className="text-gray-400">Discount (-20%):</p>
-            <h2 className="text-red-500">-$250</h2>
+            <h2 className="text-red-500">
+              -$
+              {cartItems
+                .reduce(
+                  (cur, num) => (num?.discount ? cur + num.discount : cur),
+                  0
+                )
+                .toLocaleString()}
+            </h2>
           </div>
           <div className="flex gap-4 items-center justify-between">
             <p className="text-gray-400">Delivery Fee:</p>
@@ -80,7 +124,9 @@ function Cart() {
           <hr />
           <div className="flex gap-4 items-center justify-between">
             <p className="text-lg">Total:</p>
-            <h2 className="text-xl">$150</h2>
+            <h2 className="text-xl">
+              ${(totalPrice + delivery_fee).toLocaleString()}
+            </h2>
           </div>
           <div className="flex gap-2">
             <div className="flex items-center w-full pl-2 bg-gray-100 rounded-md">

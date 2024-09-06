@@ -19,9 +19,11 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { useAppSelector } from "@/hooks/useStore";
 
 function Header() {
   const pathname = usePathname();
+  const cartItems = useAppSelector((state) => state.cart.items);
 
   return (
     <header>
@@ -100,9 +102,16 @@ function Header() {
                         <Icon icon="solar:cart-3-linear" className="text-xl" />
                       </Button>
                     </Link>
-                    <div className="w-4 h-4 text-white top-0 flex text-xs items-center justify-center bg-primary rounded-full absolute">
-                      <p>2</p>
-                    </div>
+                    {!!cartItems.length && (
+                      <div className="w-4 h-4 text-white top-0 flex text-xs items-center justify-center bg-primary rounded-full absolute">
+                        <p>
+                          {cartItems.reduce(
+                            (cur, num) => cur + num.quantity,
+                            0
+                          )}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>

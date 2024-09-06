@@ -63,12 +63,12 @@ function Wishlist() {
               </Button>
             </div>
             <h2>{data.name}</h2>
-            {data?.off_price ? (
+            {data?.discount ? (
               <>
                 <div className="flex gap-2">
                   <p className="text-red-500">${data.price.toLocaleString()}</p>
                   <p className="text-gray-400 line-through">
-                    ${data.off_price.toLocaleString()}
+                    ${data.discount.toLocaleString()}
                   </p>
                 </div>
                 <div className="flex gap-2">

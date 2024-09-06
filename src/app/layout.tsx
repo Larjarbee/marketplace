@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Rubik } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import ProviderWrapper from "@/configs/provider";
 
 const sans = DM_Sans({
   subsets: ["latin"],
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sans.variable} ${rubik.variable}`}>
-        {children}
+        <ProviderWrapper>{children}</ProviderWrapper>
         <Toaster />
       </body>
     </html>
