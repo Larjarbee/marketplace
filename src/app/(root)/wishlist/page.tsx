@@ -54,6 +54,8 @@ function Wishlist() {
                   src={data.image}
                   alt={data.name}
                   className="m-auto object-contain"
+                  width={100}
+                  height={80}
                 />
               </div>
               <Button className="w-full bg-black hover:bg-black/70">

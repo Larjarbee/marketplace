@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import { Icon } from "@iconify/react";
-import { BEST_PRODUCTS } from "../page";
+import { PRODUCTS } from "@/constants/data";
 
 function Cart() {
   const breadcrumbs = [
@@ -20,7 +20,7 @@ function Cart() {
 
       <div className="flex gap-5 flex-col md:flex-row">
         <div className="basis-full space-y-4 md:basis-2/3">
-          {BEST_PRODUCTS.slice(0, 3).map((product: TProducts, index) => (
+          {PRODUCTS.slice(0, 3).map((product: TProducts, index) => (
             <div
               key={index}
               className="flex justify-between items-center border rounded-md p-2"
