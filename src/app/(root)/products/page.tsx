@@ -1,7 +1,6 @@
 "use client";
 import BreadcrumbCard from "@/components/shared/Breadcrumb";
 import React from "react";
-import { OUR_PRODUCTS } from "../page";
 import ProductList from "@/components/shared/product-list";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
@@ -26,6 +25,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { PRODUCTS } from "@/constants/data";
 
 function Products() {
   const form = useForm();
@@ -182,7 +182,7 @@ function Products() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {OUR_PRODUCTS?.map((product, index) => (
+            {PRODUCTS?.map((product, index) => (
               <ProductList key={index} {...product} />
             ))}
           </div>

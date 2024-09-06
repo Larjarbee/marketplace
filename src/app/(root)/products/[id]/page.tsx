@@ -12,13 +12,7 @@ import { Minus, Plus } from "lucide-react";
 import { Icon } from "@iconify/react";
 import Heading from "@/components/shared/heading";
 import ProductList from "@/components/shared/product-list";
-import image1 from "@/assets/images/ideapad-gaming-3i-01-500x500 1.png";
-import image2 from "@/assets/images/ak-900-01-500x500 1.png";
-import image3 from "@/assets/images/547953_9C2ST_8746_001_082_0000_Light-Gucci-Savoy-medium-duffle-bag 1.png";
-import image4 from "@/assets/images/Copa_Sense 1.png";
-import image5 from "@/assets/images/New-Mercedes-Benz-Gtr-Licensed-Ride-on-Car-Kids-Electric-Toy-Car 1.png";
-import image6 from "@/assets/images/jacket.png";
-import { TProducts } from "../../../../../types";
+import { PRODUCTS } from "@/constants/data";
 
 function ProductDetail() {
   const breadcrumbs = [
@@ -107,7 +101,7 @@ function ProductDetail() {
         <Heading text="Related Item" />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-          {OUR_PRODUCTS?.map((product, index) => (
+          {PRODUCTS?.splice(0, 8).map((product, index) => (
             <ProductList key={index} {...product} />
           ))}
         </div>
@@ -117,62 +111,3 @@ function ProductDetail() {
 }
 
 export default ProductDetail;
-
-const OUR_PRODUCTS: TProducts[] = [
-  {
-    id: "1",
-    name: "HAVIT HV-G92 Gamepad",
-    price: 120,
-    image: image1,
-    rating: 3.5,
-  },
-  {
-    id: "1",
-    name: "AK-900 Wired Keyboard",
-    price: 970,
-    image: image2,
-    rating: 5,
-  },
-  {
-    id: "1",
-    name: "Gucci duffle bag",
-    price: 120,
-    image: image3,
-    rating: 4.5,
-  },
-  {
-    id: "1",
-    name: "Jr. Zoom Soccer Cleats",
-    price: 970,
-    image: image4,
-    rating: 5,
-  },
-  {
-    id: "1",
-    name: "HAVIT HV-G92 Gamepad",
-    price: 120,
-    image: image5,
-    rating: 2.5,
-  },
-  {
-    id: "1",
-    name: "AK-900 Wired Keyboard",
-    price: 970,
-    image: image6,
-    rating: 5,
-  },
-  {
-    id: "1",
-    name: "AK-900 Wired Keyboard",
-    price: 970,
-    image: image2,
-    rating: 5,
-  },
-  {
-    id: "1",
-    name: "Gucci duffle bag",
-    price: 120,
-    image: image3,
-    rating: 4.5,
-  },
-];

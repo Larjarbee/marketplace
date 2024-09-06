@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import LoadingContent from "../shared/LoadingContent";
 
 interface TableProps<TData> {
   data: TData[];
@@ -76,7 +77,7 @@ function DataTable<TData>({
           {isLoading ? (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24">
-                <p>Loading</p>
+                <LoadingContent />
               </TableCell>
             </TableRow>
           ) : (

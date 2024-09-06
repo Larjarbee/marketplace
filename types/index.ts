@@ -8,6 +8,8 @@ export type TProducts = {
   id: string;
   name: string;
   price: number;
+  promo: boolean;
+  category: string;
   off_price?: number;
   percent?: number;
   image: any;

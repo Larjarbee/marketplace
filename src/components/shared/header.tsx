@@ -18,7 +18,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 function Header() {
@@ -36,7 +35,7 @@ function Header() {
         <div className="hidden items-center md:flex">
           {[
             { name: "Home", path: "/" },
-            { name: "Contact", path: "/contact" },
+            { name: "Products", path: "/products" },
             { name: "About", path: "/about" },
           ].map((link) => (
             <Link

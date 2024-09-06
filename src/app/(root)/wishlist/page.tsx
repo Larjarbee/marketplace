@@ -1,12 +1,12 @@
 import BreadcrumbCard from "@/components/shared/Breadcrumb";
 import React from "react";
-import { OUR_PRODUCTS } from "../page";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
 import { Ratings } from "@/components/ui/rating";
+import { PRODUCTS } from "@/constants/data";
 
 function Wishlist() {
   const breadcrumbs = [
@@ -20,7 +20,7 @@ function Wishlist() {
       <h6 className="text-xl">Wishlist (10)</h6>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-        {OUR_PRODUCTS?.map((data, index) => (
+        {PRODUCTS?.map((data, index) => (
           <div key={index} className="space-y-2">
             <div className="relative bg-gray-100 space-y-5 rounded-sm overflow-hidden">
               {data.percent && (
