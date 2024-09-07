@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Button } from "../ui/button";
 import { Icon } from "@iconify/react";
 import {
@@ -23,7 +23,8 @@ import { useAppSelector } from "@/hooks/useStore";
 
 function Header() {
   const searchParams = useSearchParams();
-  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const searchValue = searchParams.get("search");
+  const [search, setSearch] = useState(searchValue || "");
   const pathname = usePathname();
   const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -33,125 +34,145 @@ function Header() {
   };
 
   return (
-    <header>
-      <nav className="w-11/12 mx-auto py-2 flex justify-between gap-2 items-center md:container">
-        <Link href="/">
-          <h2 className="text-2xl md:hidden">M</h2>
-          <h2 className="text-2xl hidden md:block">
-            Marketplace<sup>NG</sup>
-          </h2>
-        </Link>
-        <div className="hidden items-center md:flex">
-          {[
-            { name: "Home", path: "/" },
-            { name: "Products", path: "/products" },
-            { name: "About", path: "/about" },
-          ].map((link) => (
-            <Link
-              key={link.name}
-              href={link.path}
-              className={cn(
-                "p-4 hover:underline",
-                pathname === link.path && "underline"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
-          <NavigationMenu className="mx-auto">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="font-light">
-                  Shop
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                    {MENUS.map((link, index) => (
-                      <ListItem key={index} title={link.name} href={link.path}>
-                        {link.ads.toLocaleString()} ads
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-        <div className="flex gap-2 items-center">
-          <div className="flex items-center bg-gray-100 rounded-md">
-            <Link href="/products">
-              <input
-                className="flex h-8 w-full rounded-md border-none bg-inherit px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                placeholder="What are you looking for?"
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-              />
-            </Link>
-            <Button onClick={handleSubmit} size="icon" variant="ghost">
-              <Icon icon="mynaui:search" className="text-xl" />
-            </Button>
+    <Suspense>
+      <header>
+        <nav className="w-11/12 mx-auto py-2 flex justify-between gap-2 items-center md:container">
+          <Link href="/">
+            <h2 className="text-2xl md:hidden">M</h2>
+            <h2 className="text-2xl hidden md:block">
+              Marketplace<sup>NG</sup>
+            </h2>
+          </Link>
+          <div className="hidden items-center md:flex">
+            {[
+              { name: "Home", path: "/" },
+              { name: "Products", path: "/products" },
+              { name: "About", path: "/about" },
+            ].map((link) => (
+              <Link
+                key={link.name}
+                href={link.path}
+                className={cn(
+                  "p-4 hover:underline",
+                  pathname === link.path && "underline"
+                )}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <NavigationMenu className="mx-auto">
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="font-light">
+                    Shop
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                      {MENUS.map((link, index) => (
+                        <ListItem
+                          key={index}
+                          title={link.name}
+                          href={link.path}
+                        >
+                          {link.ads.toLocaleString()} ads
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
-          <TooltipProvider>
-            <div className="flex gap-0 items-center md:gap-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link href="/wishlist">
-                    <Button size="icon" variant="ghost">
-                      <Icon icon="solar:heart-outline" className="text-xl" />
-                    </Button>
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Saved Items</p>
-                </TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="relative">
-                    <Link href="/cart">
-                      <Button size="icon" variant="ghost">
-                        <Icon icon="solar:cart-3-linear" className="text-xl" />
-                      </Button>
-                    </Link>
-                    {!!cartItems.length && (
-                      <div className="w-4 h-4 text-white top-0 flex text-xs items-center justify-center bg-primary rounded-full absolute">
-                        <p>
-                          {cartItems.reduce(
-                            (cur, num) => cur + num.quantity,
-                            0
-                          )}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Carts</p>
-                </TooltipContent>
-              </Tooltip>
-              <div className="hidden md:block">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button size="icon">
-                      <Icon icon="solar:user-outline" className="text-xl" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Profile</p>
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-              <Button size="icon" variant="ghost" className="md:hidden">
-                <Icon icon="gg:menu-right" className="text-xl" />
+          <div className="flex gap-2 items-center">
+            <div className="flex items-center bg-gray-100 rounded-md">
+              {searchValue ? (
+                <input
+                  className="flex h-8 w-full rounded-md border-none bg-inherit px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="What are you looking for?"
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                />
+              ) : (
+                <Link href="/products">
+                  <input
+                    className="flex h-8 w-full rounded-md border-none bg-inherit px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                    placeholder="What are you looking for?"
+                    value={search}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                    }}
+                  />
+                </Link>
+              )}
+              <Button onClick={handleSubmit} size="icon" variant="ghost">
+                <Icon icon="mynaui:search" className="text-xl" />
               </Button>
             </div>
-          </TooltipProvider>
-        </div>
-      </nav>
-      <hr />
-    </header>
+            <TooltipProvider>
+              <div className="flex gap-0 items-center md:gap-2">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link href="/wishlist">
+                      <Button size="icon" variant="ghost">
+                        <Icon icon="solar:heart-outline" className="text-xl" />
+                      </Button>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Saved Items</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="relative">
+                      <Link href="/cart">
+                        <Button size="icon" variant="ghost">
+                          <Icon
+                            icon="solar:cart-3-linear"
+                            className="text-xl"
+                          />
+                        </Button>
+                      </Link>
+                      {!!cartItems.length && (
+                        <div className="w-4 h-4 text-white top-0 flex text-xs items-center justify-center bg-primary rounded-full absolute">
+                          <p>
+                            {cartItems.reduce(
+                              (cur, num) => cur + num.quantity,
+                              0
+                            )}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Carts</p>
+                  </TooltipContent>
+                </Tooltip>
+                <div className="hidden md:block">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button size="icon">
+                        <Icon icon="solar:user-outline" className="text-xl" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Profile</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+                <Button size="icon" variant="ghost" className="md:hidden">
+                  <Icon icon="gg:menu-right" className="text-xl" />
+                </Button>
+              </div>
+            </TooltipProvider>
+          </div>
+        </nav>
+        <hr />
+      </header>
+    </Suspense>
   );
 }
 
