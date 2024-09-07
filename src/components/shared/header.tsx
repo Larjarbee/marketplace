@@ -1,8 +1,8 @@
 "use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Icon } from "@iconify/react";
 import {
@@ -22,8 +22,15 @@ import {
 import { useAppSelector } from "@/hooks/useStore";
 
 function Header() {
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("search") || "");
   const pathname = usePathname();
+  const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart.items);
+
+  const handleSubmit = () => {
+    router.push(`?${new URLSearchParams({ search: search })}`);
+  };
 
   return (
     <header>
@@ -72,11 +79,17 @@ function Header() {
         </div>
         <div className="flex gap-2 items-center">
           <div className="flex items-center bg-gray-100 rounded-md">
-            <input
-              className="flex h-8 w-full rounded-md border-none bg-inherit px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-              placeholder="What are you looking for?"
-            />
-            <Button size="icon" variant="ghost">
+            <Link href="/products">
+              <input
+                className="flex h-8 w-full rounded-md border-none bg-inherit px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="What are you looking for?"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+              />
+            </Link>
+            <Button onClick={handleSubmit} size="icon" variant="ghost">
               <Icon icon="mynaui:search" className="text-xl" />
             </Button>
           </div>

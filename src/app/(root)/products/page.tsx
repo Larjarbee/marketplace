@@ -26,8 +26,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { PRODUCTS } from "@/constants/data";
+import { useSearchParams } from "next/navigation";
 
 function Products() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
+
+  const filteredProducts = PRODUCTS.filter((p) =>
+    p.name.toLowerCase().includes((search as string) || "")
+  );
+  console.log(search, filteredProducts);
+
   const form = useForm();
 
   const breadcrumbs = [
@@ -182,7 +191,7 @@ function Products() {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {PRODUCTS?.map((product, index) => (
+            {filteredProducts?.map((product, index) => (
               <ProductList key={index} {...product} />
             ))}
           </div>
