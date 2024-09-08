@@ -1,5 +1,3 @@
-import { StaticImageData } from "next/image";
-
 export type TCategories = {
   icon: string;
   path: string;
@@ -12,7 +10,7 @@ export type TCart = {
   discount?: number;
   quantity: number;
   name: string;
-  image: StaticImageData;
+  image: any;
 };
 
 export type TProducts = {
@@ -23,7 +21,7 @@ export type TProducts = {
   category: string;
   discount?: number;
   percent?: number;
-  image: StaticImageData;
+  image: any;
   rating: number;
 };
 

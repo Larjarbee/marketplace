@@ -86,7 +86,7 @@ export default async function Home() {
             </div>
           </div>
           <Products
-            data={PRODUCTS.filter((product) => product.promo)}
+            data={PRODUCTS.filter((product) => product?.promo)}
             nextEl=".swiper-btn-next"
             prevEl=".swiper-btn-prev"
           />
@@ -146,7 +146,7 @@ export default async function Home() {
             </div>
           </div>
           <Products
-            data={PRODUCTS.toReversed()}
+            data={PRODUCTS?.toReversed()}
             nextEl=".btn-next"
             prevEl=".btn-prev"
           />
@@ -210,8 +210,8 @@ export default async function Home() {
           <h2 className="text-xl md:text-4xl">Explore Our Products</h2>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-            {PRODUCTS?.slice(0, 8).map((product, index) => (
-              <ProductList key={index} {...product} />
+            {PRODUCTS?.slice(0, 8).map((product) => (
+              <ProductList key={product.id} {...product} />
             ))}
           </div>
           <div className="flex justify-center pt-5">

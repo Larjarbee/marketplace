@@ -45,7 +45,7 @@ function ProductList(data: TProducts) {
           <Button size="icon" className="bg-white text-black hover:text-white">
             <Icon icon="solar:heart-outline" className="text-lg" />
           </Button>
-          <Link href={`/products/${1}`}>
+          <Link href={`/products/${data.id}`}>
             <Button
               size="icon"
               className="bg-white text-black hover:text-white"

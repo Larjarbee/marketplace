@@ -101,8 +101,8 @@ function ProductDetail() {
         <Heading text="Related Item" />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-          {PRODUCTS?.splice(0, 8).map((product, index) => (
-            <ProductList key={index} {...product} />
+          {PRODUCTS?.splice(0, 8).map((product) => (
+            <ProductList key={product.id} {...product} />
           ))}
         </div>
       </div>

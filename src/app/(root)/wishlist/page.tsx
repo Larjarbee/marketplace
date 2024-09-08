@@ -40,7 +40,7 @@ function Wishlist() {
                 >
                   <Icon icon="fluent:delete-32-regular" className="text-lg" />
                 </Button>
-                <Link href={`/products/${1}`}>
+                <Link href={`/products/${data.id}`}>
                   <Button
                     size="icon"
                     className="bg-white text-black hover:text-white"

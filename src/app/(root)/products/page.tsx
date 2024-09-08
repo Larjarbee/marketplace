@@ -4,7 +4,13 @@ import React from "react";
 import ProductList from "@/components/shared/product-list";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import FormInput from "@/components/ui/form-input";
 import { Label } from "@/components/ui/label";
@@ -17,26 +23,75 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { PRODUCTS } from "@/constants/data";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function Products() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
+  const discountParams = searchParams.get("discount");
+  const ratingParams = searchParams.get("rating");
 
-  const filteredProducts = PRODUCTS.filter((p) =>
+  const form = useForm({
+    defaultValues: {
+      min_price: "",
+      max_price: "",
+      discount: discountParams || "",
+      rating: ratingParams || "",
+    },
+  });
+
+  const min_price = form.watch("min_price");
+  const max_price = form.watch("max_price");
+  const rating = form.watch("rating");
+  const discount = form.watch("discount");
+
+  const filteredSearch = PRODUCTS.filter((p) =>
     p.name.toLowerCase().includes((search as string) || "")
   );
 
-  const form = useForm();
+  const filteredPrice = filteredSearch.filter((p) => {
+    if (max_price !== "" && max_price !== "") {
+      return p.price >= Number(min_price) && p.price < Number(max_price);
+    }
+    return p;
+  });
+
+  let filteredDiscount;
+  switch (discount) {
+    case "with_discount":
+      filteredDiscount = filteredPrice.filter((p) => p.promo);
+      break;
+    case "without_discount":
+      filteredDiscount = filteredPrice.filter((p) => !p.promo);
+      break;
+    default:
+      filteredDiscount = filteredPrice;
+      break;
+  }
+
+  let filteredRating;
+  switch (rating) {
+    case "four_above":
+      filteredRating = filteredDiscount.filter((p) => p.rating >= 4);
+      break;
+    case "three_above":
+      filteredRating = filteredDiscount.filter((p) => p.rating >= 3);
+      break;
+    case "two_above":
+      filteredRating = filteredDiscount.filter((p) => p.rating >= 2);
+      break;
+    case "one_above":
+      filteredRating = filteredDiscount.filter((p) => p.rating >= 1);
+      break;
+    default:
+      filteredRating = filteredDiscount;
+      break;
+  }
+
+  const filteredProducts = filteredRating;
 
   const breadcrumbs = [
     { name: "Home", icon: true },
@@ -65,44 +120,123 @@ function Products() {
               </div>
 
               <h2>Discount</h2>
-              <RadioGroup defaultValue="all">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="all" id="r1" />
-                  <Label htmlFor="r1">Show all</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="with_discount" id="r2" />
-                  <Label htmlFor="r2">With discount</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="without_discount" id="r3" />
-                  <Label htmlFor="r3">Without discount</Label>
-                </div>
-              </RadioGroup>
+              <FormField
+                control={form.control}
+                name="discount"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-col space-y-1"
+                      >
+                        <FormItem className="flex items-center space-x-2 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem
+                              value="all"
+                              onClick={() =>
+                                router.push(
+                                  `?${new URLSearchParams({
+                                    discount: "all",
+                                    rating: ratingParams || "",
+                                  })}`
+                                )
+                              }
+                            />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Show all
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-2 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem
+                              value="with_discount"
+                              onClick={() =>
+                                router.push(
+                                  `?${new URLSearchParams({
+                                    discount: "with_discount",
+                                    rating: ratingParams || "",
+                                  })}`
+                                )
+                              }
+                            />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            With discount
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-2 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem
+                              value="without_discount"
+                              onClick={() =>
+                                router.push(
+                                  `?${new URLSearchParams({
+                                    discount: "without_discount",
+                                    rating: ratingParams || "",
+                                  })}`
+                                )
+                              }
+                            />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Without discount
+                          </FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
 
               <h2>Rating</h2>
-              <RadioGroup>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="four_above" id="r1" />
-                  <Ratings rating={4} size={15} />
-                  <Label htmlFor="r1">& above</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="three_above" id="r2" />
-                  <Ratings rating={3} size={15} />
-                  <Label htmlFor="r2">& above</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="two_above" id="r3" />
-                  <Ratings rating={2} size={15} />
-                  <Label htmlFor="r3">& above</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="one_above" id="r4" />
-                  <Ratings rating={1} size={15} />
-                  <Label htmlFor="r4">& above</Label>
-                </div>
-              </RadioGroup>
+              <FormField
+                control={form.control}
+                name="rating"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-col space-y-1"
+                      >
+                        {[
+                          "four_above",
+                          "three_above",
+                          "two_above",
+                          "one_above",
+                        ].map((el, index) => (
+                          <FormItem
+                            key={index}
+                            className="flex items-center space-x-2 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem
+                                value={el}
+                                onClick={() =>
+                                  router.push(
+                                    `?${new URLSearchParams({
+                                      discount: discountParams || "",
+                                      rating: el,
+                                    })}`
+                                  )
+                                }
+                              />
+                            </FormControl>
+                            <Ratings rating={4} size={15} />
+                            <FormLabel className="font-normal">
+                              & above
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </form>
           </Form>
         </div>

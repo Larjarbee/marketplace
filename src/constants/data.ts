@@ -59,7 +59,7 @@ export const PRODUCTS: TProducts[] = [
   {
     id: "6",
     name: "Jacket",
-    price: 970,
+    price: 1200,
     promo: false,
     category: "Fashion",
     image: image6,
