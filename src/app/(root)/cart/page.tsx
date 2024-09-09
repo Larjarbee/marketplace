@@ -49,14 +49,9 @@ function Cart() {
     email: "larjar@gmail.com",
     amount: (totalPrice + delivery_fee) * 100,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_API_KEY || "",
-    onSuccess: (response: any) => {
-      console.log(response);
-      alert("Payment successful");
+    onSuccess: () => {
       router.push("/cart");
       dispatch(defaultCartState());
-    },
-    close: () => {
-      alert("User cancelled!!!!");
     },
   };
 
