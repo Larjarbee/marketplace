@@ -1,6 +1,6 @@
+"use client";
 import BreadcrumbCard from "@/components/shared/Breadcrumb";
 import React from "react";
-import img from "@/assets/images/image 63.png";
 import img1 from "@/assets/images/image 57.png";
 import img2 from "@/assets/images/image 58.png";
 import img3 from "@/assets/images/image 59.png";
@@ -13,12 +13,38 @@ import { Icon } from "@iconify/react";
 import Heading from "@/components/shared/heading";
 import ProductList from "@/components/shared/product-list";
 import { PRODUCTS } from "@/constants/data";
+import { useAppDispatch } from "@/hooks/useStore";
+import { addItemToCart } from "@/store/cartSlice";
+import { toast } from "sonner";
 
-function ProductDetail() {
+function ProductDetail({ params }: { params: { id: string } }) {
+  const data = PRODUCTS?.find((product) => product?.id === params?.id);
+  const relatedData = PRODUCTS?.filter(
+    (product) => product?.category === data?.category
+  );
+
+  const dispatch = useAppDispatch();
+
+  const addToCart = () => {
+    if (data) {
+      dispatch(
+        addItemToCart({
+          id: data?.id,
+          name: data?.name,
+          quantity: 1,
+          discount: data?.discount,
+          price: data?.price,
+          image: data?.image,
+        })
+      );
+      toast.success("Item added successfully");
+    }
+  };
+
   const breadcrumbs = [
     { name: "Account", icon: true },
-    { name: "Gaming", icon: true },
-    { name: "Ps console", icon: false },
+    { name: `${data?.category}`, icon: true },
+    { name: `${data?.name}`, icon: false },
   ];
   return (
     <div className="container py-5 space-y-5">
@@ -35,17 +61,19 @@ function ProductDetail() {
           </div>
 
           <div className="p-14 w-full bg-gray-100 flex items-center justify-center">
-            <Image src={img} alt="" width={400} />
+            <Image src={data?.image} alt="" width={400} />
           </div>
         </div>
         <div className="basis-full space-y-4 md:basis-1/3">
-          <h2 className="text-xl">Havic HV G-92 Gamepad</h2>
+          <h2 className="text-xl">{data?.name}</h2>
           <div className="flex gap-2">
             <Ratings rating={4.5} size={15} />
             <p className="text-gray-400">(35 Reviews)</p> <p>|</p>
             <p className="text-green-400">In stock</p>
           </div>
-          <h2 className="font-light text-xl">$192.00</h2>
+          <h2 className="font-light text-xl">
+            ${data?.price.toLocaleString()}
+          </h2>
           <h4>
             PlayStation 5 Controller Skin High quality vinyl with air channel
             adhesive for easy bubble free install & mess free removal Pressure
@@ -71,7 +99,9 @@ function ProductDetail() {
           </div>
 
           <div className="flex gap-2">
-            <Button className="w-1/2">Add to Cart</Button>
+            <Button className="w-1/2" onClick={addToCart}>
+              Add to Cart
+            </Button>
             <Button variant="outline">
               <Icon icon="solar:heart-outline" className="text-lg" />
             </Button>
@@ -101,7 +131,7 @@ function ProductDetail() {
         <Heading text="Related Item" />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-          {PRODUCTS?.splice(0, 8).map((product) => (
+          {relatedData?.splice(0, 8).map((product) => (
             <ProductList key={product.id} {...product} />
           ))}
         </div>
