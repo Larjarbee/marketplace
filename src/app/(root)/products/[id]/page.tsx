@@ -1,6 +1,6 @@
 "use client";
 import BreadcrumbCard from "@/components/shared/Breadcrumb";
-import React from "react";
+import React, { useState } from "react";
 import img1 from "@/assets/images/image 57.png";
 import img2 from "@/assets/images/image 58.png";
 import img3 from "@/assets/images/image 59.png";
@@ -18,6 +18,8 @@ import { addItemToCart } from "@/store/cartSlice";
 import { toast } from "sonner";
 
 function ProductDetail({ params }: { params: { id: string } }) {
+  const [quantity, setQuantity] = useState(1);
+
   const data = PRODUCTS?.find((product) => product?.id === params?.id);
   const relatedData = PRODUCTS?.filter(
     (product) => product?.category === data?.category
@@ -31,7 +33,7 @@ function ProductDetail({ params }: { params: { id: string } }) {
         addItemToCart({
           id: data?.id,
           name: data?.name,
-          quantity: 1,
+          quantity,
           discount: data?.discount,
           price: data?.price,
           image: data?.image,
@@ -85,14 +87,18 @@ function ProductDetail({ params }: { params: { id: string } }) {
               variant="outline"
               size="sm"
               className="rounded-none border-y-0 border-l-0"
+              onClick={() =>
+                setQuantity((prev) => (prev === 1 ? prev : prev - 1))
+              }
             >
               <Minus size={15} />
             </Button>
-            <p className="text-sm">0</p>
+            <p className="text-sm">{quantity}</p>
             <Button
               variant="outline"
               size="sm"
               className="rounded-none border-y-0 border-r-0"
+              onClick={() => setQuantity((prev) => prev + 1)}
             >
               <Plus size={15} />
             </Button>
