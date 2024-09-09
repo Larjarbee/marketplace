@@ -10,8 +10,14 @@ type initialStateProps = {
 export const cartSlice = createSlice({
   name: "cart",
   initialState: <initialStateProps>{
-    items: JSON.parse(localStorage.getItem("carts") as any) || [],
-    totalPrice: JSON.parse(localStorage.getItem("cartsTotalPrice") as any) || 0,
+    items:
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("carts") as any) || []
+        : "",
+    totalPrice:
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("cartsTotalPrice") as any) || 0
+        : "",
   },
   reducers: {
     addItemToCart: (state, action: PayloadAction<TCart>) => {
@@ -32,8 +38,8 @@ export const cartSlice = createSlice({
         existingItem.quantity += newItem.quantity;
       }
       if (typeof window !== "undefined") {
-        window.localStorage.setItem("carts", JSON.stringify(state.items));
-        window.localStorage.setItem(
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
           "cartsTotalPrice",
           JSON.stringify(state.totalPrice)
         );
@@ -52,8 +58,8 @@ export const cartSlice = createSlice({
         state.totalPrice -= existingItem.price;
       }
       if (typeof window !== "undefined") {
-        window.localStorage.setItem("carts", JSON.stringify(state.items));
-        window.localStorage.setItem(
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
           "cartsTotalPrice",
           JSON.stringify(state.totalPrice)
         );
@@ -69,8 +75,8 @@ export const cartSlice = createSlice({
         state.items = state.items.filter((item) => item.id !== id);
       }
       if (typeof window !== "undefined") {
-        window.localStorage.setItem("carts", JSON.stringify(state.items));
-        window.localStorage.setItem(
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
           "cartsTotalPrice",
           JSON.stringify(state.totalPrice)
         );
@@ -81,8 +87,8 @@ export const cartSlice = createSlice({
       state.items = [];
       state.totalPrice = 0;
       if (typeof window !== "undefined") {
-        window.localStorage.setItem("carts", JSON.stringify(state.items));
-        window.localStorage.setItem(
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
           "cartsTotalPrice",
           JSON.stringify(state.totalPrice)
         );
