@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from ".";
 import { TCart } from "../../types";
 
 type initialStateProps = {
@@ -104,8 +103,5 @@ export const {
   deleteItemFromCart,
   defaultCartState,
 } = cartSlice.actions;
-
-// Other code such as selectors can use the imported `RootState` type
-export const cartItems = (state: RootState) => state.cart.items;
 
 export default cartSlice.reducer;
