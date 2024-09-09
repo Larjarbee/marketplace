@@ -10,14 +10,8 @@ type initialStateProps = {
 export const cartSlice = createSlice({
   name: "cart",
   initialState: <initialStateProps>{
-    items:
-      typeof window !== "undefined"
-        ? JSON.parse(window.localStorage.getItem("carts") as any) || []
-        : "",
-    totalPrice:
-      typeof window !== "undefined"
-        ? JSON.parse(window.localStorage.getItem("cartsTotalPrice") as any) || 0
-        : "",
+    items: JSON.parse(localStorage.getItem("carts") as any) || [],
+    totalPrice: JSON.parse(localStorage.getItem("cartsTotalPrice") as any) || 0,
   },
   reducers: {
     addItemToCart: (state, action: PayloadAction<TCart>) => {
