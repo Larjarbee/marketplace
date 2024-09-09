@@ -83,11 +83,27 @@ export const cartSlice = createSlice({
         );
       }
     },
+
+    defaultCartState(state) {
+      state.items = [];
+      state.totalPrice = 0;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(state.items));
+        localStorage.setItem(
+          "cartsTotalPrice",
+          JSON.stringify(state.totalPrice)
+        );
+      }
+    },
   },
 });
 
-export const { addItemToCart, removeItemFromCart, deleteItemFromCart } =
-  cartSlice.actions;
+export const {
+  addItemToCart,
+  removeItemFromCart,
+  deleteItemFromCart,
+  defaultCartState,
+} = cartSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const cartItems = (state: RootState) => state.cart.items;
