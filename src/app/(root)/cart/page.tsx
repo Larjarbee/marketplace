@@ -48,7 +48,7 @@ function Cart() {
   const componentProps = {
     email: "larjar@gmail.com",
     amount: (totalPrice + delivery_fee) * 100,
-    publicKey: "",
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_API_KEY || "",
     onSuccess: () => {
       router.push("/cart");
       dispatch(defaultCartState());
