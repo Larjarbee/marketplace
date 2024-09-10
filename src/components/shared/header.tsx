@@ -20,6 +20,14 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { useAppSelector } from "@/hooks/useStore";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 function Header() {
   const searchParams = useSearchParams();
@@ -46,7 +54,7 @@ function Header() {
           {[
             { name: "Home", path: "/" },
             { name: "Products", path: "/products" },
-            { name: "About", path: "/about" },
+            { name: "About", path: "/" },
           ].map((link) => (
             <Link
               key={link.name}
@@ -155,9 +163,37 @@ function Header() {
                   </TooltipContent>
                 </Tooltip>
               </div>
-              <Button size="icon" variant="ghost" className="md:hidden">
-                <Icon icon="gg:menu-right" className="text-xl" />
-              </Button>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="icon" variant="ghost" className="md:hidden">
+                    <Icon icon="gg:menu-right" className="text-xl" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="w-full h-full bg-white border-0">
+                  <DialogHeader>
+                    <DialogTitle></DialogTitle>
+                  </DialogHeader>
+                  <div className="items-center gap-4 -mt-[40rem] flex flex-col justify-center">
+                    {[
+                      { name: "Home", path: "/" },
+                      { name: "Products", path: "/products" },
+                      { name: "About", path: "/" },
+                    ].map((link) => (
+                      <Link
+                        key={link.name}
+                        href={link.path}
+                        className={cn(
+                          "p-3 text-lg rounded-lg hover:bg-gray-500",
+                          pathname === link.path ? "text-gray-500" : ""
+                        )}
+                      >
+                        <DialogClose>{link.name}</DialogClose>
+                      </Link>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </TooltipProvider>
         </div>

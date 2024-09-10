@@ -11,14 +11,14 @@ import {
   addItemToCart,
   deleteItemFromCart,
   removeItemFromCart,
-  defaultCartState,
+  // defaultCartState,
 } from "@/store/cartSlice";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { PaystackButton } from "react-paystack";
+// import { useRouter } from "next/navigation";
+// import { PaystackButton } from "react-paystack";
 
 function Cart() {
-  const router = useRouter();
+  // const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart.items);
   const totalPrice = useAppSelector((state) => state.cart.totalPrice);
 
@@ -45,15 +45,15 @@ function Cart() {
     toast.success("Item added successfully");
   };
 
-  const componentProps = {
-    email: "larjar@gmail.com",
-    amount: (totalPrice + delivery_fee) * 100,
-    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_API_KEY || "",
-    onSuccess: () => {
-      router.push("/cart");
-      dispatch(defaultCartState());
-    },
-  };
+  // const componentProps = {
+  //   email: "larjar@gmail.com",
+  //   amount: (totalPrice + delivery_fee) * 100,
+  //   publicKey: process.env.NEXT_PUBLIC_PAYSTACK_API_KEY || "",
+  //   onSuccess: () => {
+  //     router.push("/cart");
+  //     dispatch(defaultCartState());
+  //   },
+  // };
 
   const breadcrumbs = [
     { name: "Home", icon: true },
@@ -153,13 +153,17 @@ function Cart() {
               </div>
               <Button>Apply</Button>
             </div>
-            <PaystackButton
+            <Button className="w-full bg-primary h-10 px-4 py-2 text-primary-foreground inline-flex items-center rounded-sm justify-center whitespace-nowrap text-sm font-light ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90">
+              Go to Checkout{" "}
+              <Icon icon="formkit:arrowright" className="text-sm" />
+            </Button>
+            {/* <PaystackButton
               {...componentProps}
               className="w-full bg-primary h-10 px-4 py-2 text-primary-foreground inline-flex items-center rounded-sm justify-center whitespace-nowrap text-sm font-light ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90"
             >
               Go to Checkout{" "}
               <Icon icon="formkit:arrowright" className="text-sm" />
-            </PaystackButton>
+            </PaystackButton> */}
           </div>
         </div>
       ) : (

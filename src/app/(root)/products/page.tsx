@@ -23,7 +23,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { PRODUCTS } from "@/constants/data";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -265,7 +272,11 @@ function Products() {
                 </DialogTrigger>
                 <DialogContent className="h-full">
                   <div className="space-y-4">
-                    <h2 className="text-lg">filters</h2>
+                    <DialogHeader>
+                      <DialogTitle className="text-lg text-start">
+                        filters
+                      </DialogTitle>
+                    </DialogHeader>
                     <hr />
                     <Form {...form}>
                       <form className="space-y-4">
@@ -277,47 +288,129 @@ function Products() {
                         </div>
 
                         <h2>Discount</h2>
-                        <RadioGroup defaultValue="all">
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="all" id="r1" />
-                            <Label htmlFor="r1">Show all</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="with_discount" id="r2" />
-                            <Label htmlFor="r2">With discount</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="without_discount" id="r3" />
-                            <Label htmlFor="r3">Without discount</Label>
-                          </div>
-                        </RadioGroup>
+                        <FormField
+                          control={form.control}
+                          name="discount"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                  className="flex flex-col space-y-1"
+                                >
+                                  <FormItem className="flex items-center space-x-2 space-y-0">
+                                    <FormControl>
+                                      <RadioGroupItem
+                                        value="all"
+                                        onClick={() =>
+                                          router.push(
+                                            `?${new URLSearchParams({
+                                              discount: "all",
+                                              rating: ratingParams || "",
+                                            })}`
+                                          )
+                                        }
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      Show all
+                                    </FormLabel>
+                                  </FormItem>
+                                  <FormItem className="flex items-center space-x-2 space-y-0">
+                                    <FormControl>
+                                      <RadioGroupItem
+                                        value="with_discount"
+                                        onClick={() =>
+                                          router.push(
+                                            `?${new URLSearchParams({
+                                              discount: "with_discount",
+                                              rating: ratingParams || "",
+                                            })}`
+                                          )
+                                        }
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      With discount
+                                    </FormLabel>
+                                  </FormItem>
+                                  <FormItem className="flex items-center space-x-2 space-y-0">
+                                    <FormControl>
+                                      <RadioGroupItem
+                                        value="without_discount"
+                                        onClick={() =>
+                                          router.push(
+                                            `?${new URLSearchParams({
+                                              discount: "without_discount",
+                                              rating: ratingParams || "",
+                                            })}`
+                                          )
+                                        }
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                      Without discount
+                                    </FormLabel>
+                                  </FormItem>
+                                </RadioGroup>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
 
                         <h2>Rating</h2>
-                        <RadioGroup>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="four_above" id="r1" />
-                            <Ratings rating={4} size={15} />
-                            <Label htmlFor="r1">& above</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="three_above" id="r2" />
-                            <Ratings rating={3} size={15} />
-                            <Label htmlFor="r2">& above</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="two_above" id="r3" />
-                            <Ratings rating={2} size={15} />
-                            <Label htmlFor="r3">& above</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="one_above" id="r4" />
-                            <Ratings rating={1} size={15} />
-                            <Label htmlFor="r4">& above</Label>
-                          </div>
-                        </RadioGroup>
+                        <FormField
+                          control={form.control}
+                          name="rating"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormControl>
+                                <RadioGroup
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                  className="flex flex-col space-y-1"
+                                >
+                                  {[
+                                    "four_above",
+                                    "three_above",
+                                    "two_above",
+                                    "one_above",
+                                  ].map((el, index) => (
+                                    <FormItem
+                                      key={index}
+                                      className="flex items-center space-x-2 space-y-0"
+                                    >
+                                      <FormControl>
+                                        <RadioGroupItem
+                                          value={el}
+                                          onClick={() =>
+                                            router.push(
+                                              `?${new URLSearchParams({
+                                                discount: discountParams || "",
+                                                rating: el,
+                                              })}`
+                                            )
+                                          }
+                                        />
+                                      </FormControl>
+                                      <Ratings rating={4} size={15} />
+                                      <FormLabel className="font-normal">
+                                        & above
+                                      </FormLabel>
+                                    </FormItem>
+                                  ))}
+                                </RadioGroup>
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
                       </form>
                     </Form>
-                    <Button className="w-1/3">Apply</Button>
+                    <br />
+                    <DialogClose className="w-full bg-primary text-white py-3 rounded-md">
+                      Apply
+                    </DialogClose>
                   </div>
                 </DialogContent>
               </Dialog>
